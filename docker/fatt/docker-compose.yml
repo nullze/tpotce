@@ -1,5 +1,3 @@
-version: '2.3'
-
 services:
 
 # Fatt service
@@ -14,6 +12,6 @@ services:
      - NET_ADMIN
      - SYS_NICE
      - NET_RAW
-    image: "dtagdevsec/fatt:2204"
+    image: "dtagdevsec/fatt:24.04"
     volumes:
-     - /data/fatt/log:/opt/fatt/log
+     - $HOME/tpotce/data/fatt/log:/opt/fatt/log

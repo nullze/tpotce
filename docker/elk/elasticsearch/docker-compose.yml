@@ -1,5 +1,3 @@
-version: '2.3'
-
 services:
 
 # ELK services
@@ -24,6 +22,6 @@ services:
     mem_limit: 2g
     ports:
      - "127.0.0.1:64298:9200"
-    image: "dtagdevsec/elasticsearch:2204"
+    image: "dtagdevsec/elasticsearch:24.04"
     volumes:
-     - /data:/data
+     - $HOME/tpotce/data:/data

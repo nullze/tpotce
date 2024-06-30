@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM alpine:3.19
 #
 # Include dist
 COPY dist/ /root/dist/
@@ -7,7 +7,8 @@ COPY dist/ /root/dist/
 RUN apk -U --no-cache add \
       nginx \
       nginx-mod-http-brotli \
-      nginx-mod-http-headers-more && \
+      nginx-mod-http-headers-more \
+      nginx-mod-http-lua && \ 
 #
 ## Setup T-Pot Landing Page, Eleasticvue, Cyberchef 
     cp -R /root/dist/html/* /var/lib/nginx/html/ && \
@@ -28,6 +29,7 @@ RUN apk -U --no-cache add \
     cp /root/dist/conf/nginx.conf /etc/nginx/ && \
     cp -R /root/dist/conf/ssl /etc/nginx/ && \
     cp /root/dist/conf/tpotweb.conf /etc/nginx/conf.d/ && \
+    cp /root/dist/conf/lsweb.conf /etc/nginx/conf.d/ && \
 #
 # Clean up
     rm -rf /root/* && \

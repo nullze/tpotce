@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 #
 # VARS
-ENV LS_VER=8.4.3
+ENV LS_VER=8.13.4
 # Include dist
 COPY dist/ /root/dist/
 #
@@ -9,12 +9,9 @@ COPY dist/ /root/dist/
 RUN apt-get update -y && \
     apt-get install -y \
              aria2 \
-	     autossh \
              bash \
              bzip2 \
-	     curl \
-#             openjdk-11-jre \
-             openssh-client && \
+             curl && \
 #
 # Determine arch, get and install packages
     ARCH=$(arch) && \
@@ -42,6 +39,8 @@ RUN apt-get update -y && \
     cp pipelines.yml /usr/share/logstash/config/pipelines.yml && \
     cp pipelines_sensor.yml /usr/share/logstash/config/pipelines_sensor.yml && \
     cp tpot-template.json /etc/logstash/ && \
+    cd /usr/share/logstash && \
+    bin/logstash-plugin update logstash-filter-translate && \
     rm /etc/logstash/pipelines.yml && \
     rm /etc/logstash/logstash.yml && \
 #
@@ -64,4 +63,4 @@ HEALTHCHECK --retries=10 CMD curl -s -XGET 'http://127.0.0.1:9600'
 #
 # Start logstash
 USER logstash:logstash
-CMD entrypoint.sh && exec /usr/share/logstash/bin/logstash --config.reload.automatic
+CMD entrypoint.sh

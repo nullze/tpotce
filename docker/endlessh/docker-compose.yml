@@ -1,5 +1,3 @@
-version: '2.3'
-
 networks:
   endlessh_local:
 
@@ -16,7 +14,7 @@ services:
      - endlessh_local
     ports:
      - "22:2222"
-    image: "dtagdevsec/endlessh:2204"
+    image: "dtagdevsec/endlessh:24.04"
     read_only: true
     volumes:
-     - /data/endlessh/log:/var/log/endlessh
+     - $HOME/tpotce/data/endlessh/log:/var/log/endlessh
